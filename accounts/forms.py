@@ -5,12 +5,16 @@ from routine.models import StudentProfile
 
 
 class NewUserForm(UserCreationForm):
+    first_name = forms.CharField(max_length=20)
+    last_name = forms.CharField(max_length=20)
+    email = forms.CharField(max_length=64)
+
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
+        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
 
 
 class StudentProfileForm(forms.ModelForm):
     class Meta:
         model = StudentProfile
-        fields = []
+        fields = ('user', 'student_number', 'first_name', 'last_name', 'email_address')

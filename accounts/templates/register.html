@@ -1,291 +1,508 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create Account | ST Pauls College & Midwifery</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.js" integrity="sha256-1PYCpx/EXA36KN1NKrK7auaTylVyk01D98R7Ccf04Bc=" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/color/jquery.color-2.2.0.js" integrity="sha256-gvMJWDHjgDrVSiN6eBI9h7dRfQmsTTsGU/eTT8vpzNg=" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/qunit/qunit-2.17.1.js" integrity="sha256-ydl0OMBsf0YCn5+D2w4kpZVZoURjO/XN+y7sjq8k/CM=" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/pep/0.4.3/pep.js" integrity="sha256-yZpZULjaPllFSRFfS6JsDvucyRd3yNo7yKc/YsMQAsk=" crossorigin="anonymous"></script>
-
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
 </head>
 
 <style>
-    /*custom font*/
-    @import url(https://fonts.googleapis.com/css?family=Montserrat);
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
 
-    /*basic reset*/
     * {
         margin: 0;
         padding: 0;
-    }
-
-    html {
-        height: 100%;
-        /*Image only BG fallback*/
-
-        /*background = gradient + image pattern combo*/
-        background: linear-gradient(rgba(196, 102, 0, 0.6), rgba(155, 89, 182, 0.6));
-    }
-
-    body {
-        font-family: montserrat, arial, verdana;
-    }
-
-    /*form styles*/
-    #msform {
-        width: 400px;
-        margin: 50px auto;
-        text-align: center;
-        position: relative;
-    }
-
-    #msform fieldset {
-        background: white;
-        border: 0 none;
-        border-radius: 3px;
-        box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
-        padding: 20px 30px;
         box-sizing: border-box;
-        width: 80%;
-        margin: 0 10%;
+    }
 
-        /*stacking fieldsets above each other*/
+    body,
+    input {
+        font-family: "Poppins", sans-serif;
+    }
+
+    .container {
         position: relative;
-    }
-
-    /*Hide all except first fieldset*/
-    #msform fieldset:not(:first-of-type) {
-        display: none;
-    }
-
-    /*inputs*/
-    #msform input, #msform textarea {
-        padding: 15px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        margin-bottom: 10px;
         width: 100%;
-        box-sizing: border-box;
-        font-family: montserrat;
-        color: #2C3E50;
-        font-size: 13px;
-    }
-
-    /*buttons*/
-    #msform .action-button {
-        width: 100px;
-        background: #27AE60;
-        font-weight: bold;
-        color: white;
-        border: 0 none;
-        border-radius: 1px;
-        cursor: pointer;
-        padding: 10px 5px;
-        margin: 10px 5px;
-    }
-
-    #msform .action-button:hover, #msform .action-button:focus {
-        box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
-    }
-
-    /*headings*/
-    .fs-title {
-        font-size: 15px;
-        text-transform: uppercase;
-        color: #2C3E50;
-        margin-bottom: 10px;
-    }
-
-    .fs-subtitle {
-        font-weight: normal;
-        font-size: 13px;
-        color: #666;
-        margin-bottom: 20px;
-    }
-
-    /*progressbar*/
-    #progressbar {
-        margin-bottom: 30px;
+        background-color: #fff;
+        min-height: 100vh;
         overflow: hidden;
-        /*CSS counters to number the steps*/
-        counter-reset: step;
     }
 
-    #progressbar li {
-        list-style-type: none;
-        color: white;
-        text-transform: uppercase;
-        font-size: 9px;
-        width: 33.33%;
-        float: left;
+    .forms-container {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+    }
+
+    .signin-signup {
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        left: 75%;
+        width: 50%;
+        transition: 1s 0.7s ease-in-out;
+        display: grid;
+        grid-template-columns: 1fr;
+        z-index: 5;
+    }
+
+    form {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 0rem 5rem;
+        transition: all 0.2s 0.7s;
+        overflow: hidden;
+        grid-column: 1 / 2;
+        grid-row: 1 / 2;
+    }
+
+    form.sign-up-form {
+        opacity: 0;
+        z-index: 1;
+    }
+
+    form.sign-in-form {
+        z-index: 2;
+    }
+
+    .title {
+        font-size: 2.2rem;
+        color: #444;
+        margin-bottom: 10px;
+    }
+
+    .input-field {
+        max-width: 380px;
+        width: 100%;
+        background-color: #f0f0f0;
+        margin: 10px 0;
+        height: 55px;
+        border-radius: 55px;
+        display: grid;
+        grid-template-columns: 15% 85%;
+        padding: 0 0.4rem;
         position: relative;
     }
 
-    #progressbar li:before {
-        content: counter(step);
-        counter-increment: step;
-        width: 20px;
-        line-height: 20px;
-        display: block;
-        font-size: 10px;
+    .input-field i {
+        text-align: center;
+        line-height: 55px;
+        color: #acacac;
+        transition: 0.5s;
+        font-size: 1.1rem;
+    }
+
+    .input-field input {
+        background: none;
+        outline: none;
+        border: none;
+        line-height: 1;
+        font-weight: 600;
+        font-size: 1.1rem;
         color: #333;
-        background: white;
-        border-radius: 3px;
-        margin: 0 auto 5px auto;
     }
 
-    /*progressbar connectors*/
-    #progressbar li:after {
-        content: '';
-        width: 100%;
-        height: 2px;
-        background: white;
+    .input-field input::placeholder {
+        color: #aaa;
+        font-weight: 500;
+    }
+
+    .social-text {
+        padding: 0.7rem 0;
+        font-size: 1rem;
+    }
+
+    .social-media {
+        display: flex;
+        justify-content: center;
+    }
+
+    .social-icon {
+        height: 46px;
+        width: 46px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 0.45rem;
+        color: #333;
+        border-radius: 50%;
+        border: 1px solid #333;
+        text-decoration: none;
+        font-size: 1.1rem;
+        transition: 0.3s;
+    }
+
+    .social-icon:hover {
+        color: #4481eb;
+        border-color: #4481eb;
+    }
+
+    .btn {
+        width: 150px;
+        background-color: #5995fd;
+        border: none;
+        outline: none;
+        height: 49px;
+        border-radius: 49px;
+        color: #fff;
+        text-transform: uppercase;
+        font-weight: 600;
+        margin: 10px 0;
+        cursor: pointer;
+        transition: 0.5s;
+    }
+
+    .btn:hover {
+        background-color: #4d84e2;
+    }
+
+    .panels-container {
         position: absolute;
-        left: -50%;
-        top: 9px;
-        z-index: -1; /*put it behind the numbers*/
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    #progressbar li:first-child:after {
-        /*connector not needed before the first step*/
-        content: none;
+    .container:before {
+        content: "";
+        position: absolute;
+        height: 2000px;
+        width: 2000px;
+        top: -10%;
+        right: 48%;
+        transform: translateY(-50%);
+        background-image: linear-gradient(-45deg, #4481eb 0%, #04befe 100%);
+        transition: 1.8s ease-in-out;
+        border-radius: 50%;
+        z-index: 6;
     }
 
-    /*marking active/completed steps green*/
-    /*The number of the step and the connector before it = green*/
-    #progressbar li.active:before, #progressbar li.active:after {
-        background: #27AE60;
-        color: white;
+    .image {
+        width: 100%;
+        transition: transform 1.1s ease-in-out;
+        transition-delay: 0.4s;
     }
 
+    .panel {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: space-around;
+        text-align: center;
+        z-index: 6;
+    }
 
+    .left-panel {
+        pointer-events: all;
+        padding: 3rem 17% 2rem 12%;
+    }
+
+    .right-panel {
+        pointer-events: none;
+        padding: 3rem 12% 2rem 17%;
+    }
+
+    .panel .content {
+        color: #fff;
+        transition: transform 0.9s ease-in-out;
+        transition-delay: 0.6s;
+    }
+
+    .panel h3 {
+        font-weight: 600;
+        line-height: 1;
+        font-size: 1.5rem;
+    }
+
+    .panel p {
+        font-size: 0.95rem;
+        padding: 0.7rem 0;
+    }
+
+    .btn.transparent {
+        margin: 0;
+        background: none;
+        border: 2px solid #fff;
+        width: 130px;
+        height: 41px;
+        font-weight: 600;
+        font-size: 0.8rem;
+    }
+
+    .right-panel .image,
+    .right-panel .content {
+        transform: translateX(800px);
+    }
+
+    /* ANIMATION */
+
+    .container.sign-up-mode:before {
+        transform: translate(100%, -50%);
+        right: 52%;
+    }
+
+    .container.sign-up-mode .left-panel .image,
+    .container.sign-up-mode .left-panel .content {
+        transform: translateX(-800px);
+    }
+
+    .container.sign-up-mode .signin-signup {
+        left: 25%;
+    }
+
+    .container.sign-up-mode form.sign-up-form {
+        opacity: 1;
+        z-index: 2;
+    }
+
+    .container.sign-up-mode form.sign-in-form {
+        opacity: 0;
+        z-index: 1;
+    }
+
+    .container.sign-up-mode .right-panel .image,
+    .container.sign-up-mode .right-panel .content {
+        transform: translateX(0%);
+    }
+
+    .container.sign-up-mode .left-panel {
+        pointer-events: none;
+    }
+
+    .container.sign-up-mode .right-panel {
+        pointer-events: all;
+    }
+
+    @media (max-width: 870px) {
+        .container {
+            min-height: 800px;
+            height: 100vh;
+        }
+
+        .signin-signup {
+            width: 100%;
+            top: 95%;
+            transform: translate(-50%, -100%);
+            transition: 1s 0.8s ease-in-out;
+        }
+
+        .signin-signup,
+        .container.sign-up-mode .signin-signup {
+            left: 50%;
+        }
+
+        .panels-container {
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr 2fr 1fr;
+        }
+
+        .panel {
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            padding: 2.5rem 8%;
+            grid-column: 1 / 2;
+        }
+
+        .right-panel {
+            grid-row: 3 / 4;
+        }
+
+        .left-panel {
+            grid-row: 1 / 2;
+        }
+
+        .image {
+            width: 200px;
+            transition: transform 0.9s ease-in-out;
+            transition-delay: 0.6s;
+        }
+
+        .panel .content {
+            padding-right: 15%;
+            transition: transform 0.9s ease-in-out;
+            transition-delay: 0.8s;
+        }
+
+        .panel h3 {
+            font-size: 1.2rem;
+        }
+
+        .panel p {
+            font-size: 0.7rem;
+            padding: 0.5rem 0;
+        }
+
+        .btn.transparent {
+            width: 110px;
+            height: 35px;
+            font-size: 0.7rem;
+        }
+
+        .container:before {
+            width: 1500px;
+            height: 1500px;
+            transform: translateX(-50%);
+            left: 30%;
+            bottom: 68%;
+            right: initial;
+            top: initial;
+            transition: 2s ease-in-out;
+        }
+
+        .container.sign-up-mode:before {
+            transform: translate(-50%, 100%);
+            bottom: 32%;
+            right: initial;
+        }
+
+        .container.sign-up-mode .left-panel .image,
+        .container.sign-up-mode .left-panel .content {
+            transform: translateY(-300px);
+        }
+
+        .container.sign-up-mode .right-panel .image,
+        .container.sign-up-mode .right-panel .content {
+            transform: translateY(0px);
+        }
+
+        .right-panel .image,
+        .right-panel .content {
+            transform: translateY(300px);
+        }
+
+        .container.sign-up-mode .signin-signup {
+            top: 5%;
+            transform: translate(-50%, 0);
+        }
+    }
+
+    @media (max-width: 570px) {
+        form {
+            padding: 0 1.5rem;
+        }
+
+        .image {
+            display: none;
+        }
+
+        .panel .content {
+            padding: 0.5rem 1rem;
+        }
+
+        .container {
+            padding: 1.5rem;
+        }
+
+        .container:before {
+            bottom: 72%;
+            left: 50%;
+        }
+
+        .container.sign-up-mode:before {
+            bottom: 28%;
+            left: 50%;
+        }
+    }
 </style>
 <body>
-<!-- multistep form -->
-<form id="msform" action="http://google.com">
-    <!-- progressbar -->
-    <ul id="progressbar">
-        <li class="active">Account Setup</li>
-        <li>Contact Info</li>
-        <li>Personal Details</li>
-    </ul>
-    <!-- fieldsets -->
-    <fieldset>
-        <h2 class="fs-title">Create your account</h2>
-        <h3 class="fs-subtitle">Step 1 of 3</h3>
-        <input type="text" name="snumber" placeholder="Student Number" required/>
-        <input type="password" name="pass" placeholder="Password" required/>
-        <input type="password" name="cpass" placeholder="Confirm Password" required/>
-        <input type="button" name="next" class="next action-button" value="Next" required/>
-    </fieldset>
-    <fieldset>
-        <h2 class="fs-title">Contact Info</h2>
-        <h3 class="fs-subtitle">Step 2 of 3</h3>
-        <input type="text" name="phone" placeholder="Phone Number"/>
-        <input type="email" name="email" id="email" placeholder="Email">
-        <input type="text" name="address" id="address" placeholder="Residential Address">
-        <input type="button" name="previous" class="previous action-button" value="Previous"/>
-        <input type="button" name="next" class="next action-button" value="Next"/>
-    </fieldset>
-    <fieldset>
-        <h2 class="fs-title">Personal Details</h2>
-        <h3 class="fs-subtitle">Step 3 of 3</h3>
-        <input type="text" name="fname" placeholder="First Name" required/>
-        <input type="text" name="mname" placeholder="Middle Name"/>
-        <input type="text" name="lname" placeholder="Last Name" required/>
-        <input type="text" name="nrc" id="nrc" placeholder="NRC Number">
-        <input type="button" name="previous" class="previous action-button" value="Previous"/>
-        <input type="submit" name="submit" class="submit action-button" value="Sign Up"/>
-    </fieldset>
-</form>
+<body>
+<div class="container">
+    <div class="forms-container">
+        <div class="signin-signup">
+            <form action="{% url 'login' %}" class="sign-in-form" method="post">
+                {% csrf_token %}
+                <h2 class="title">Sign in</h2>
+                <div class="input-field">
+                    <i class="fas fa-user"></i>
+                    <input type="text" placeholder="Student NUmber" name="snumber" required maxlength="20"/>
+                </div>
+                <div class="input-field">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" placeholder="Password" name="login-password" required maxlength="20"/>
+                </div>
+                <input type="submit" value="Login" class="btn solid"/>
 
+            </form>
+            <form action="{% url 'register' %}" class="sign-up-form" method="post">
+                {% csrf_token %}
+                <h2 class="title">Sign up</h2>
+                <div class="input-field">
+                    <i class="fas fa-user"></i>
+                    <input type="text" placeholder="Student Number" name="snumber" required maxlength="20"/>
+                </div>
+                <div class="input-field">
+                    <i class="fas fa-user"></i>
+                    <input type="text" placeholder="First Name" name="fname" required maxlength="20"/>
+                </div>
+                <div class="input-field">
+                    <i class="fas fa-user"></i>
+                    <input type="text" placeholder="Last Name" name="lname" required maxlength="20"/>
+                </div>
+                <div class="input-field">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" placeholder="Email" name="email" required maxlength="64"/>
+                </div>
+                <div class="input-field">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" placeholder="Password" name="password" required maxlength="20"/>
+                </div>
+                <input type="submit" class="btn" value="Sign up"/>
+            </form>
+        </div>
+    </div>
+
+    <div class="panels-container">
+        <div class="panel left-panel">
+            <div class="content">
+                <h3>New here ?</h3>
+                <p>
+                    Welcome To ST. Paul's College of Nursing And Midwifery.
+                    Login or Sign up if you don't have an account yet.
+                </p>
+                <button class="btn transparent" id="sign-up-btn">
+                    Sign up
+                </button>
+            </div>
+            <img src="img/log.svg" class="image" alt=""/>
+        </div>
+        <div class="panel right-panel">
+            <div class="content">
+                <h3>One of us ?</h3>
+                <p>
+                    Welcome To ST. Paul's College of Nursing And Midwifery.
+                    Login to access your portal.
+                </p>
+                <button class="btn transparent" id="sign-in-btn">
+                    Sign in
+                </button>
+            </div>
+            <img src="img/register.svg" class="image" alt=""/>
+        </div>
+    </div>
+</div>
+</body>
 <script>
+    const sign_in_btn = document.querySelector("#sign-in-btn");
+    const sign_up_btn = document.querySelector("#sign-up-btn");
+    const container = document.querySelector(".container");
 
-//jQuery time
-var current_fs, next_fs, previous_fs; //fieldsets
-var left, opacity, scale; //fieldset properties which we will animate
-var animating; //flag to prevent quick multi-click glitches
+    sign_up_btn.addEventListener("click", () => {
+        container.classList.add("sign-up-mode");
+    });
 
-$(".next").click(function(){
-	if(animating) return false;
-	animating = true;
-
-	current_fs = $(this).parent();
-	next_fs = $(this).parent().next();
-
-	//activate next step on progressbar using the index of next_fs
-	$("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-
-	//show the next fieldset
-	next_fs.show();
-	//hide the current fieldset with style
-	current_fs.animate({opacity: 0}, {
-		step: function(now, mx) {
-			//as the opacity of current_fs reduces to 0 - stored in "now"
-			//1. scale current_fs down to 80%
-			scale = 1 - (1 - now) * 0.2;
-			//2. bring next_fs from the right(50%)
-			left = (now * 50)+"%";
-			//3. increase opacity of next_fs to 1 as it moves in
-			opacity = 1 - now;
-			current_fs.css({
-        'transform': 'scale('+scale+')',
-        'position': 'absolute'
-      });
-			next_fs.css({'left': left, 'opacity': opacity});
-		},
-		duration: 800,
-		complete: function(){
-			current_fs.hide();
-			animating = false;
-		},
-		//this comes from the custom easing plugin
-		easing: 'easeInOutBack'
-	});
-});
-
-$(".previous").click(function(){
-	if(animating) return false;
-	animating = true;
-
-	current_fs = $(this).parent();
-	previous_fs = $(this).parent().prev();
-
-	//de-activate current step on progressbar
-	$("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
-
-	//show the previous fieldset
-	previous_fs.show();
-	//hide the current fieldset with style
-	current_fs.animate({opacity: 0}, {
-		step: function(now, mx) {
-			//as the opacity of current_fs reduces to 0 - stored in "now"
-			//1. scale previous_fs from 80% to 100%
-			scale = 0.8 + (1 - now) * 0.2;
-			//2. take current_fs to the right(50%) - from 0%
-			left = ((1-now) * 50)+"%";
-			//3. increase opacity of previous_fs to 1 as it moves in
-			opacity = 1 - now;
-			current_fs.css({'left': left});
-			previous_fs.css({'transform': 'scale('+scale+')', 'opacity': opacity});
-		},
-		duration: 800,
-		complete: function(){
-			current_fs.hide();
-			animating = false;
-		},
-		//this comes from the custom easing plugin
-		easing: 'easeInOutBack'
-	});
-});
-
-$(".submit").click(function(){
-	return false;
-})
-
+    sign_in_btn.addEventListener("click", () => {
+        container.classList.remove("sign-up-mode");
+    });
 </script>
 </body>
 </html>

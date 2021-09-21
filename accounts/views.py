@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, \
     PasswordChangeForm
 from django.contrib.auth import login, load_backend, authenticate, logout, update_session_auth_hash
+from django.db import IntegrityError
 from django.shortcuts import render, redirect
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
@@ -12,18 +13,39 @@ from routine.models import StudentProfile
 
 
 def register(request):
-    """registering new users into the system"""
     if request.method != 'POST':
-        return render(request, 'register.html', {})
+        return render(request, 'register.html')
     else:
-        user_form = NewUserForm(request.POST)
-        if user_form.is_valid():
-            user = user_form.save()
+        form = User()
+        form.username = request.POST.get('snumber', False)
+        form.first_name = request.POST.get('fname', False)
+        form.last_name = request.POST.get('lname', False)
+        form.email = request.POST.get('email')
+        form.password1 = request.POST.get('password', False)
+        form.password2 = request.POST.get('password', False)
+        try:
+            form.save()
+        except IntegrityError:
+            return HttpResponse('user already exist')
+
+        user = User.objects.get(username=form.username)
+        user.set_password(form.password1)
+        user.save()
+        return HttpResponse('THANKS')
+
+
+def login_view(request):
+    if request.method != 'POST':
+        return render(request, 'register.html')
+    else:
+        username = request.POST.get('snumber', False)
+        password = request.POST.get('login-password', False)
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
             login(request, user)
-            student_profile = StudentProfile(user=request.POST.get('snumber', False),
-                                             student_number=request.POST.get('snumber', False),
-                                             first_name=request.POST['fname', False],
-                                             last_name=request.POST['lname', False],
-                                             email_address=request.POST.get('email', False),
-                                             phone_number=request.POST.get('phone', False),
-                                             )
+            return HttpResponse('logged in')
+        else:
+            return HttpResponse('incorrect username or password')
+
+def dashboard(request):
+    return HttpResponse('Dashboard')
