@@ -16,8 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from . import views
+
+admin.AdminSite.site_header = f"ST Paul's College of Nursing & Midwifery"
+admin.AdminSite.site_title = 'ST Paul\'s College of Nursing & Midwifery'
+admin.AdminSite.index_title = 'College Administration Portal'
 urlpatterns = [
+    path('', views.index, name='index'),
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
+    path('learn/', include('routine.urls')),
 
 ]

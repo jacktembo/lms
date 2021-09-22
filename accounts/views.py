@@ -1,15 +1,9 @@
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, \
-    PasswordChangeForm
-from django.contrib.auth import login, load_backend, authenticate, logout, update_session_auth_hash
-from django.db import IntegrityError
-from django.shortcuts import render, redirect
-from django.http import Http404, HttpResponse, HttpResponseRedirect
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.core.mail import send_mail
-from django.urls import reverse
-
-from accounts.forms import NewUserForm
-from routine.models import StudentProfile
+from django.db import IntegrityError
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render
 
 
 def register(request):
@@ -47,5 +41,29 @@ def login_view(request):
         else:
             return HttpResponse('incorrect username or password')
 
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect('/')
+
+
+@login_required(login_url='/accounts/login')
 def dashboard(request):
     return HttpResponse('Dashboard')
+
+
+@login_required(login_url='/accounts/login')
+def password_change(request):
+    if request.method != 'POST':
+        return render(request, 'change_password.html')
+    else:
+        user = request.user
+        entered = request.POST.get('current', False)  # The password a user enters as his current.
+        new = request.POST.get('new', False)
+        verify = request.POST.get('verify', False)  # The password confirmation.
+        if user.check_password(entered) and new == verify:
+            user.set_password(new)
+            user.save()
+            return HttpResponse('password changed')
+        else:
+            return HttpResponse('invalid entry')
